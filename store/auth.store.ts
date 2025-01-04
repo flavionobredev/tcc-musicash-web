@@ -14,6 +14,7 @@ export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = ref(false);
 
   firebaseAuth.onIdTokenChanged(async (fbuser) => {
+    console.log("\n\n\n\nonIdTokenChanged", fbuser, "\n\n\n\n");
     if (!fbuser) {
       clear();
       return;
@@ -50,18 +51,24 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const loginWithGoogle = async () => {
-    const result = await signInWithPopup(
-      firebaseAuth,
-      new GoogleAuthProvider()
-    );
-    const user = await registerUser(await result.user.getIdToken());
-    userStore.value = user;
-    router.push("/");
+    try {
+      const result = await signInWithPopup(
+        firebaseAuth,
+        new GoogleAuthProvider()
+      );
+      const user = await registerUser(await result.user.getIdToken());
+      userStore.value = user;
+      router.push("/");
+    } catch (error) {
+      await firebaseAuth.signOut();
+      clear();
+      throw error;
+    }
   };
 
   return {
-    isAuthenticated,
-    user: userStore,
+    isAuthenticated: computed(() => isAuthenticated),
+    user: computed(() => userStore),
     logout,
     getToken,
     getUser,

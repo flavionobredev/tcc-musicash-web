@@ -6,15 +6,35 @@ definePageMeta({
 });
 const route = useRoute();
 const toast = useToast();
+const loading = ref(false);
 
 const { loginWithGoogle } = useAuthStore();
 
 const onGoogleLogin = async () => {
-  try {
-    await loginWithGoogle();
-  } catch (error) {
-    console.error(error);
-  }
+  loading.value = true;
+  await loginWithGoogle()
+    .catch((error) => {
+      if (error.parsed) {
+        toast.add({
+          title: "Erro ao fazer login",
+          description: error.message,
+          color: "amber",
+          icon: "mdi:alert-circle",
+        });
+        return;
+      }
+
+      toast.add({
+        title: "Erro ao fazer login",
+        description:
+          "Ocorreu um erro ao fazer login, tente novamente em instantes.",
+        color: "amber",
+        icon: "mdi:alert-circle",
+      });
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 
 onMounted(() => {
@@ -39,6 +59,7 @@ onMounted(() => {
         label="Fazer login com Google"
         variant="outline"
         class="mt-4"
+        :loading="loading"
       >
         <UIcon name="mdi:google" />
         Entrar com o Google

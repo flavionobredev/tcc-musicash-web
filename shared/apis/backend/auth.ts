@@ -9,6 +9,9 @@ export const getUserInfo = async (token?: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  if (!data) {
+    return null;
+  }
   return new UserEntity({
     id: data.id,
     email: data.email,
