@@ -18,5 +18,8 @@
     "pinia": "^2.3.0",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@vite-pwa/nuxt": "^0.10.6"
   }
 }
