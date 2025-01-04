@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <VitePwaManifest />
+    <!-- <VitePwaManifest /> -->
     <NuxtPage />
   </NuxtLayout>
   <UNotifications />

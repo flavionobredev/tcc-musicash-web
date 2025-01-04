@@ -14,7 +14,6 @@ export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = ref(false);
 
   firebaseAuth.onIdTokenChanged(async (fbuser) => {
-    console.log("\n\n\n\nonIdTokenChanged", fbuser, "\n\n\n\n");
     if (!fbuser) {
       clear();
       return;
