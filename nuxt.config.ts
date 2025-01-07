@@ -36,6 +36,9 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["composables/**"],
   },
+  build: {
+    transpile: ["@vuepic/vue-datepicker"],
+  },
   // pwa: {
   //   // workbox: {
   //   //   navigateFallback: "/",
