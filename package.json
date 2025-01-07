@@ -20,6 +20,7 @@
     "pinia": "^2.3.0",
     "v-calendar": "^3.1.2",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.24.1"
   }
 }

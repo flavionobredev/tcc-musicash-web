@@ -65,6 +65,10 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
+  const waitForAuth = async () => {
+    return firebaseAuth.authStateReady();
+  };
+
   return {
     isAuthenticated: computed(() => isAuthenticated),
     user: computed(() => userStore),
@@ -72,5 +76,6 @@ export const useAuthStore = defineStore("auth", () => {
     getToken,
     getUser,
     loginWithGoogle,
+    waitForAuth,
   };
 });
