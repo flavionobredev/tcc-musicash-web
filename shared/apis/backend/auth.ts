@@ -1,14 +1,8 @@
 import { UserEntity } from "~/shared/domain/user.entity";
-import { makeClient } from "./client";
+import { backendHttpClient } from "./client";
 
-const client = makeClient();
-
-export const getUserInfo = async (token?: string) => {
-  const { data } = await client.get("/auth/user/info", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getUserInfo = async () => {
+  const { data } = await backendHttpClient.get("/auth/user/info");
   if (!data) {
     return null;
   }
@@ -22,16 +16,8 @@ export const getUserInfo = async (token?: string) => {
   });
 };
 
-export const registerUser = async (token: string) => {
-  const { data } = await client.post(
-    "/auth/user/register",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export const registerUser = async () => {
+  const { data } = await backendHttpClient.post("/auth/user/register", {});
   return new UserEntity({
     id: data.id,
     email: data.email,

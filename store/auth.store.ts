@@ -20,7 +20,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     isAuthenticated.value = true;
-    userStore.value = await getUserInfo(await fbuser.getIdToken());
+    userStore.value = await getUserInfo();
   });
 
   const clear = () => {
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const getUser = async () => {
-    const user = await getUserInfo(await getToken());
+    const user = await getUserInfo();
     userStore.value = user;
     return user;
   };
@@ -55,7 +55,7 @@ export const useAuthStore = defineStore("auth", () => {
         firebaseAuth,
         new GoogleAuthProvider()
       );
-      const user = await registerUser(await result.user.getIdToken());
+      const user = await registerUser();
       userStore.value = user;
       router.push("/");
     } catch (error) {

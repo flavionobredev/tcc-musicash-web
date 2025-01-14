@@ -1,10 +1,11 @@
 import axios, { AxiosError } from "axios";
+import { useAuthStore } from "~/store/auth.store";
 
 type ClientOptions = {
   timeout?: number;
 };
 
-export const makeClient = (options?: ClientOptions) => {
+const makeClient = (options?: ClientOptions) => {
   const client = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
     timeout: options?.timeout || 5000,
@@ -12,6 +13,10 @@ export const makeClient = (options?: ClientOptions) => {
       "Content-Type": "application/json",
     },
   });
+
+  if (import.meta.server) {
+    return client;
+  }
 
   client.interceptors.response.use(null, (error) => {
     if (!(error instanceof AxiosError)) return Promise.reject(error);
@@ -30,5 +35,16 @@ export const makeClient = (options?: ClientOptions) => {
     return Promise.reject(error);
   });
 
+  client.interceptors.request.use(async (config) => {
+    const { getToken } = useAuthStore();
+    const token = await getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+
   return client;
 };
+
+export const backendHttpClient = makeClient();
