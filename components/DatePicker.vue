@@ -13,8 +13,9 @@ import { ptBR } from "date-fns/locale";
     :format-locale="ptBR"
     :format="
       (date) =>
-        format(date, 'd MMM, yyyy hh:mm', {
+        format(date, 'd MMM, yyyy HH:mm', {
           locale: ptBR,
+
         })
     "
   ></VueDatePicker>
