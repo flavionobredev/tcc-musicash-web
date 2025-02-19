@@ -6,27 +6,44 @@ const { logout } = useAuthStore();
 
 <template>
   <section class="flex">
-    <aside></aside>
+    <aside class="w-[260px] min-h-svh backdrop-filter backdrop-blur-sm">
+      <section class="flex items-center justify-center py-2">
+        <UButton
+          @click="() => router.push('/')"
+          variant="ghost"
+          class="dark:text-white dark:hover:bg-transparent"
+        >
+          <LogoMusicaSh size="sm" />
+        </UButton>
+      </section>
+      <section class="mt-5">
+        <SidebarMenu />
+      </section>
+    </aside>
 
-    <section class="px-6 w-full relative">
-      <header class="h-[60px] backdrop-filter backdrop-blur-sm sticky">
-        <div class="h-full w-full flex items-center">
-          <section class="mx-auto">
-            <UButton
-              @click="() => router.push('/')"
-              variant="ghost"
-              class="dark:text-white dark:hover:bg-transparent"
-            >
-              <LogoMusicaSh size="sm" />
-            </UButton>
-          </section>
-        </div>
+    <section class="px-6 w-full">
+      <header class="py-4 w-full">
+        <nav class="flex justify-end w-full">
+          <ClientOnly>
+            <NavbarUserDropdown />
+            <template #fallback>
+              <div class="w-full">
+                <div
+                  class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-primary rounded-full"
+                  role="status"
+                  aria-label="loading"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </template>
+          </ClientOnly>
+        </nav>
       </header>
 
       <main>
         <slot />
       </main>
-      <UButton @click="logout" class="absolute top-4 right-6">Logout</UButton>
     </section>
   </section>
 </template>

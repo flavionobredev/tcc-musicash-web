@@ -3,9 +3,10 @@ import { useAuthStore } from "~/store/auth.store";
 export default defineNuxtRouteMiddleware(async (to, from) => {
   if (import.meta.server) return;
   const publicRoutes = ["/login"];
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, waitForAuth } = useAuthStore();
+  await waitForAuth();
 
-  if (isAuthenticated && to.path === "/login") {
+  if (isAuthenticated.value && to.path === "/login") {
     return navigateTo("/");
   }
 
@@ -13,7 +14,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return;
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated.value) {
     return navigateTo("/login");
   }
 });
