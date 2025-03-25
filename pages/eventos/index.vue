@@ -18,9 +18,9 @@
         </EventsCreateModal>
       </UCard>
     </aside>
-    <section>
+    <section class="max-w-96">
       <UCard> mini calendário</UCard>
-      <UCard> listagem de eventos por data</UCard>
+      <EventsListByDate />
     </section>
   </section>
 </template>

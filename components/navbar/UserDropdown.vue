@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from "@nuxt/ui";
 import { useAuthStore } from "~/store/auth.store";
 
 const { user, logout } = useAuthStore();
 const router = useRouter();
-const items = [
+const items = ref<DropdownMenuItem[][]>([
   [
     {
       label: user.value?.email || "",
@@ -35,25 +36,24 @@ const items = [
     {
       label: "Sair",
       icon: "i-heroicons-arrow-left-on-rectangle",
-      action: async () => {
+      onSelect: async () => {
         await logout();
         router.push("/login");
       },
     },
   ],
-];
+]);
 </script>
 
 <template>
-  <UDropdown
+  <UDropdownMenu
     :items="items"
-    :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-start' }"
     class=""
   >
     <section>
       <UTooltip :text="`Olá, ${user?.name} :)`">
-        <UAvatar :src="user?.picture" />
+        <UAvatar :src="user?.picture" class="cursor-pointer" />
       </UTooltip>
     </section>
 
@@ -67,16 +67,13 @@ const items = [
     </template>
 
     <template #item="{ item }">
-      <div
-        @click="item.action"
-        class="w-full flex items-center justify-between"
-      >
+      <div @click="" class="w-full flex items-center justify-between">
         <span class="truncate">{{ item.label }}</span>
         <UIcon
-          :name="item.icon"
+          :name="item.icon as string"
           class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
         />
       </div>
     </template>
-  </UDropdown>
+  </UDropdownMenu>
 </template>

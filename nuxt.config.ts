@@ -22,29 +22,30 @@ export default defineNuxtConfig({
       ],
     },
   },
-  colorMode: {
-    preference: "dark",
-    fallback: "dark",
-  },
-  compatibilityDate: "2024-11-01",
+
+  // colorMode: {
+  //   preference: "dark",
+  //   fallback: "dark",
+  // },
+  // compatibilityDate: "2024-11-01",
+
   devtools: { enabled: true },
+
   css: ["~/assets/css/base.css"],
-  modules: ["@nuxt/ui", "@pinia/nuxt" /*, "@vite-pwa/nuxt"*/],
-  tailwindcss: {
-    disableHMR: true,
-  },
+  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxt/eslint" /*, "@vite-pwa/nuxt"*/],
+
+  // tailwindcss: {
+  //   disableHMR: true,
+  // },
   imports: {
     dirs: ["composables/**"],
   },
-  build: {
-    transpile: ["@vuepic/vue-datepicker"],
-  },
+
   // pwa: {
   //   // workbox: {
   //   //   navigateFallback: "/",
   //   // },
   //   workbox: {
-
   //   },
   //   devOptions: {
   //     enabled: true,
@@ -102,4 +103,12 @@ export default defineNuxtConfig({
   //     ],
   //   },
   // },
+  build: {
+    transpile: ["@vuepic/vue-datepicker"],
+  },
+
+  compatibilityDate: "2025-03-24",
+  future: {
+    compatibilityVersion: 4,
+  },
 });

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const links = [
+const items = [
   [
     {
       label: "Eventos",
@@ -21,11 +21,5 @@ const links = [
 </script>
 
 <template>
-  <UVerticalNavigation :links="links">
-    <template #default="{ link }">
-      <span class="group-hover:text-primary relative hover:no-underline">{{
-        link.label
-      }}</span>
-    </template>
-  </UVerticalNavigation>
+  <UNavigationMenu orientation="vertical" :items="items"> </UNavigationMenu>
 </template>

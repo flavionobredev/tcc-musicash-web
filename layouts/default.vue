@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/store/auth.store";
 const router = useRouter();
-const { logout } = useAuthStore();
 </script>
 
 <template>
@@ -9,7 +8,7 @@ const { logout } = useAuthStore();
     <aside class="w-[260px] min-h-svh backdrop-filter backdrop-blur-sm">
       <section class="flex items-center justify-center py-2">
         <UButton
-          @click="() => router.push('/')"
+          @onClick="() => router.push('/')"
           variant="ghost"
           class="dark:text-white dark:hover:bg-transparent"
         >
@@ -27,9 +26,9 @@ const { logout } = useAuthStore();
           <ClientOnly>
             <NavbarUserDropdown />
             <template #fallback>
-              <div class="w-full">
+              <div class="">
                 <div
-                  class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-primary rounded-full"
+                  class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-(--ui-primary) rounded-full"
                   role="status"
                   aria-label="loading"
                 >

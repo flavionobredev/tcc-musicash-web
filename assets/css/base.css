@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap");
-
+@import "tailwindcss";
+@import "@nuxt/ui";
 html,
 body {
-  @apply bg-cool-900 min-h-svh min-w-80 max-w-[1920px] mx-auto;
+  @apply bg-neutral-900 min-h-svh min-w-80 max-w-[1920px] mx-auto;
   font-family: "Montserrat", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -10,5 +11,5 @@ body {
 }
 
 a {
-  @apply text-primary font-bold hover:underline;
+  @apply text-(--ui-primary) font-bold hover:underline;
 }
